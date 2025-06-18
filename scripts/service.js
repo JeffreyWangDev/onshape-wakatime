@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
       heartbeats: [],
       enabled: true,
       msg: "",
-      api_url: "https://waka.hackclub.com/api"
+      api_url: "https://hackatime.hackclub.com/api/hackatime/v1"
     });
   }
 });
@@ -43,11 +43,13 @@ function sendHeartbeat() {
         return;
       }
 
-      fetch(api_url+"/compat/wakatime/v1/users/current/heartbeats.bulk", {
+        console.log(api_url)
+
+      fetch(api_url+"/users/current/heartbeats.bulk", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify(heartbeats),
       })
