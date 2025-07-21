@@ -1,13 +1,9 @@
 {
     "manifest_version": 3,
     "name": "Onshape-Wakatime",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "Time tracking for onshape",
-    "permissions": [
-        "storage",
-        "unlimitedStorage",
-        "alarms"
-    ],
+    "permissions": ["storage","unlimitedStorage", "alarms"],
     "action": {
         "default_popup": "popup.html",
         "default_icon": "images/128.png"
@@ -21,8 +17,7 @@
             "matches": [
                 "https://cad.onshape.com/*"
             ],
-            "js": [
-                "scripts/moment.js",
+            "js": ["scripts/moment.js",
                 "scripts/browser.js",
                 "scripts/core.js",
                 "scripts/content.js"
