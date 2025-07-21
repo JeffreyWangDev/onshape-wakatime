@@ -16,13 +16,15 @@ function waitForCanvas() {
 }
 const core = new WakaCore();
 function handleClick() {
+    
     if (!window.location.href.includes("cad.onshape.com")) {
         return
     }
     let url = window.location.href;
     let heatbeat = core.buildHeartbeat(url);
-    console.log(heatbeat);
+    // console.log(heatbeat);
     try{
+        chrome.storage.local.set({ currentProject: core.getProjectName() });
         chrome.storage.local.get("heartbeats").then((item) => {
             if (!item.heartbeats) {
                 item.heartbeats = []

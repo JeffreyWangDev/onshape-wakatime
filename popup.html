@@ -1,8 +1,146 @@
 <html>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        width: 300px;
+    }
 
+    h1 {
+        color: #333;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    #api_key {
+        -webkit-text-security: disc;
+        font-family: text-security-disc;
+    }
+
+    #api_key:hover {
+        -webkit-text-security: none;
+        font-family: Arial, sans-serif;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    button:disabled {
+        background-color: #535353 ;
+        cursor: not-allowed !important;
+        opacity: 0.6;
+    }
+
+    button:disabled:hover {
+        background-color: #535353 ;
+    }
+
+    #msg {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+    }
+
+    #total-time {
+        margin: 15px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f0f8ff;
+    }
+
+    #total-time h3 {
+        margin: 0 0 10px 0;
+        color: #333;
+        font-size: 16px;
+    }
+
+    #total-time p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+    }
+
+    .toggle-label {
+        font-weight: bold;
+        margin-right: 15px;
+    }
+
+    .toggle-switch {
+        position: relative;
+        width: 60px;
+        height: 30px;
+        background-color: #ccc;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .toggle-switch.active {
+        background-color: #4CAF50;
+    }
+
+    .toggle-slider {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 24px;
+        height: 24px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch.active .toggle-slider {
+        transform: translateX(30px);
+    }
+
+    .toggle-switch:hover {
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+    }
+
+    .toggle-switch.active:hover {
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    }
+
+    #enabled {
+        display: none;
+    }
+</style>
 <body>
-    <h1>Wakatime is installed</h1>
-    <button id = "help">I need help!</button>
+    <div>
+    <h1>Wakatime for OnShape</h1>
+    <h2>Track your designing time</h2>
+
+    
     <br><br>
     <label for="api_key">WAKA API key:</label>
 
@@ -11,15 +149,28 @@
     <label for="api_url">WAKA API url:</label>
     <input type="text" id="api_url" name="api_url"><br><br>
     
-    <label for="enabled">Tracking enabled</label>
+    <div class="toggle-container">
+        <span class="toggle-label">Tracking enabled</span>
+        <div class="toggle-switch" id="toggle-switch">
+            <div class="toggle-slider"></div>
+        </div>
+    </div>
     <input type="checkbox" id="enabled">
+
+    <div id="total-time">
+        <h3>Total Time Today</h3>
+        <p id="total-time-value">Time: Loading...</p>
+    </div>
 
     <div id ="msg">
         <p></p>
     </div>
     <br><br>
-    <button id="sendHeartbeat">Force send HeartBeat</button>
+    <button style="width: 180px;" id="sendHeartbeat">Force send HeartBeat</button>
+    <button id = "help">I need help!</button>
     <script src="scripts/popup.js"></script>
+    </div>
+    
 </body>
 
 </html>
