@@ -30,14 +30,16 @@ Track your OnShape design time automatically with WakaTime. Get insights about y
 - 🚫 Privacy-focused: only tracks when you're actively working
 - 🌐 Works across all OnShape files and projects
 
-## Api key
-For High Seas users
-1. Install the WakaTime browser extension
-2. Goto https://waka.hackclub.com/ and click on your name and press show API key
-3. ![image](https://github.com/user-attachments/assets/c83b58a3-4e4c-44c0-8cbd-3afd87e3eaaa)
-4. Then, enter the api key into the box thats for the API key
-5. Make sure the box is checked!
-6. Goto [onshape](https://cad.onshape.com/) and start working! 
+## Hackatime Implementation
+For Hack Club's Hackatime users
+1. Install the Onshape Wakatime browser extension
+2. Go to https://hackatime.hackclub.com/ and click on settings
+3. Scroll down to the section labelled Config File (pictured below)
+5. <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/cb410e3dda229dde4ed9413ec4c9d6938a593ab9_screenshot_2025-07-30_at_7.13.08___pm.png" width="300"/>
+6. Copy your api key, as highlighted above
+7. Then, enter the api key into the box thats for the API key
+8. Make sure the box is checked!
+9. Go to [onshape](https://cad.onshape.com/) and start working! 
 
 Your data is securely sent to WakaTime's servers and can be viewed in your WakaTime dashboard.
 
