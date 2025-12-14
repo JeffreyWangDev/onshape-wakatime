@@ -61,7 +61,7 @@ function sendHeartbeat() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
+              Authorization: api_url.includes("hackatime") ? `Bearer ${apiKey}` : `Basic ${apiKey}`,
           },
           body: JSON.stringify(heartbeats),
         })
@@ -109,7 +109,7 @@ function updateCurrentTime() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: api_url.includes("hackatime") ? `Bearer ${apiKey}` : `Basic ${apiKey}`,
       }
     })
       .then((response) => {

@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Onshape-Wakatime",
+    "name": "Wakatime for Onshape",
     "version": "2.1.0",
     "description": "Time tracking for onshape",
     "permissions": ["storage","unlimitedStorage", "alarms"],

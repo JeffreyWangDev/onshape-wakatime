@@ -30,6 +30,15 @@ Track your OnShape design time automatically with WakaTime. Get insights about y
 - 🚫 Privacy-focused: only tracks when you're actively working
 - 🌐 Works across all OnShape files and projects
 
+## Wakatime 
+For the general public to use
+1. Install the Onshape Wakatime browser extension
+2. Go to https://wakatime.com/settings/api-key
+3. Copy and set this as your api key
+4. Set `https://wakatime.com/api/v1/` as your api url
+5. Start working!
+
+
 ## Hackatime Implementation
 For Hack Club's Hackatime users
 1. Install the Onshape Wakatime browser extension
@@ -49,7 +58,6 @@ The extension tracks:
 - Time spent editing/viewing
 - The time of day you made changes
 
-Stolen from [skyfall](https://chromewebstore.google.com/detail/WakaTime%20for%20Figma/ddoemmbdnemldilpbaofhnbhihjhbjni)
 
 
 ## Dev install

@@ -96,7 +96,7 @@ function check_if_installed_correctly() {
         else if (!items.enabled) {
             popup_error("The Onshape WakaTime extension is currently disabled. Open the extension popup and enable it to start tracking.");
         }
-        else if (items.msg && items.msg.length > 0 && !items.msg.includes("successfully")) {
+        else if (items.msg && items.msg.length > 0 && !items.msg.includes("successfully") && !items.msg.includes("No heartbeats")) {
             popup_error("There was an error sending heartbeats:" + items.msg);
         }
 
@@ -156,7 +156,7 @@ function auto_set_api_key() {
             const match = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
             if (match && match[0]) {
                 const key = match[0];
-                chrome.storage.local.set({ apiKey: key }).then(() => {
+                chrome.storage.local.set({ apiKey: key, api_url: "https://hackatime.hackclub.com/api/hackatime/v1" }).then(() => {
                     popup_error("API key set automatically from this page.", false);
                     const url = new URL(window.location.href);
                     url.searchParams.delete("wakatime_autoset");
