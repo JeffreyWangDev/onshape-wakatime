@@ -169,9 +169,6 @@ function auto_set_api_key() {
             popup_error("Failed to auto-set API key: " + (e && e.message ? e.message : "unknown error"));
 
         }
-
-        
-
         return;
     }
     window.location.href = "https://hackatime.hackclub.com/my/settings?wakatime_autoset=0";

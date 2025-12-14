@@ -1,12 +1,18 @@
 {
     "manifest_version": 3,
     "name": "Onshape-Wakatime",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Time tracking for onshape",
     "permissions": ["storage","unlimitedStorage", "alarms"],
     "action": {
         "default_popup": "popup.html",
         "default_icon": "images/128.png"
+    },
+    "icons": {
+        "16": "images/16.png",
+        "32": "images/32.png",
+        "48": "images/48.png",
+        "128": "images/128.png"
     },
     "background": {
         "service_worker": "scripts/service.js",
