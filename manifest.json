@@ -15,7 +15,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://cad.onshape.com/*"
+                "https://cad.onshape.com/*",
+                "https://hackatime.hackclub.com/*"
             ],
             "js": ["scripts/moment.js",
                 "scripts/browser.js",
