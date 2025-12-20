@@ -1,15 +1,25 @@
 {
     "manifest_version": 3,
-    "name": "Onshape-Wakatime",
-    "version": "2.0.0",
-    "description": "Time tracking for onshape",
-    "permissions": ["storage","unlimitedStorage", "alarms"],
+    "name": "Wakatime for Onshape",
+    "version": "2.0.1",
+    "description": "Time tracking for Onshape",
+    "permissions": [
+        "storage",
+        "unlimitedStorage",
+        "alarms"
+    ],
     "action": {
         "default_popup": "popup.html",
-        "default_icon": "images/128.png"
+        "default_icon": "icons/128.png"
+    },
+    "icons": {
+        "16": "icons/16.png",
+        "32": "icons/32.png",
+        "48": "icons/48.png",
+        "128": "icons/128.png"
     },
     "background": {
-        "scripts": ["scripts/service.js"],
+        "service_worker": "scripts/service.js",
         "type": "module"
     },
     "content_scripts": [
@@ -17,18 +27,14 @@
             "matches": [
                 "https://cad.onshape.com/*"
             ],
-            "js": ["scripts/moment.js",
+            "js": [
+                "scripts/moment.js",
                 "scripts/browser.js",
                 "scripts/core.js",
                 "scripts/content.js"
             ]
         }
     ],
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "JeffreyWangDev@onshape-wakatime"
-        }
-    },
     "web_accessible_resources": [
         {
             "resources": [
