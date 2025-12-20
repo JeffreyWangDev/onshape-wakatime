@@ -1,7 +1,21 @@
-let VERSION = "1.0.1";
+let VERSION = "2.1.0";
 function getUserAgent() {
-    var result = bowser.getParser(window.navigator.userAgent);
-    return result.getBrowserName()+"/"+result.getBrowserVersion()+" "+(result.getOSName()+"_"+result.getOSVersion()).replace(" ", "_")+" onshape-wakatime/"+VERSION;
+    const ua = navigator.userAgent;
+    const browserMatch = ua.match(/(Chrome|Firefox|Safari|Edge)\/[\d.]+/);
+    const browser = browserMatch ? browserMatch[0] : "Unknown";
+    
+    let os = "Unknown";
+    if (ua.includes("Windows NT 10.0")) os = "Windows/10";
+    else if (ua.includes("Windows NT 11.0")) os = "Windows/11";
+    else if (ua.includes("Windows")) os = "Windows";
+    else if (ua.includes("Mac OS X")) {
+        const macVersion = ua.match(/Mac OS X ([\d_]+)/);
+        os = macVersion ? `macOS/${macVersion[1].replace(/_/g, ".")}` : "macOS";
+    }
+    else if (ua.includes("Linux")) os = "Linux";
+    else if (ua.includes("CrOS")) os = "ChromeOS";
+    
+    return `${browser} ${os} onshape-wakatime/${VERSION}`;
 }
 function uuidv4() {
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
@@ -30,8 +44,8 @@ class WakaCore {
             entity: url,
             id: uuidv4(),
             language: "Onshape",
-            plugin: "onshape-wakatime-plugin_" + getUserAgent(),
-            project: this.getProjectName() ?? '<<LAST_PROJECT>>',
+            plugin: getUserAgent(),
+            project: this.getProjectName() ?? "<<LAST_PROJECT>>",
             time: this.getCurrentTime(),
             type: url,
         };
@@ -39,7 +53,7 @@ class WakaCore {
 
     getCurrentTime() {
         const m = moment();
-        return `${m.format('x').slice(0, -3)}.${m.format('x').slice(-3)}`;
+        return `${m.format("x").slice(0, -3)}.${m.format("x").slice(-3)}`;
     }
 
     sendHeartBeat(url, api) {

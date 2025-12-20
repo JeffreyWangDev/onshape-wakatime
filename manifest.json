@@ -1,13 +1,9 @@
 {
     "manifest_version": 3,
     "name": "Wakatime for Onshape",
-    "version": "2.0.1",
-    "description": "Time tracking for Onshape",
-    "permissions": [
-        "storage",
-        "unlimitedStorage",
-        "alarms"
-    ],
+    "version": "2.1.0",
+    "description": "Time tracking for onshape",
+    "permissions": ["storage","unlimitedStorage", "alarms"],
     "action": {
         "default_popup": "popup.html",
         "default_icon": "icons/128.png"
@@ -27,7 +23,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://cad.onshape.com/*"
+                "https://cad.onshape.com/*",
+                "https://hackatime.hackclub.com/*"
             ],
             "js": [
                 "scripts/moment.js",

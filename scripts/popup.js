@@ -71,7 +71,7 @@ chrome.storage.local.get().then((items) => {
 button = document.getElementById("help");
 button.addEventListener("click", link_open);
 function link_open() {
-    chrome.tabs.create({ url: "https://github.com/JeffreyWangDev/onshape-wakatime/blob/main/README.md#api-key" });
+    chrome.tabs.create({ url: "https://github.com/JeffreyWangDev/onshape-wakatime/tree/main?tab=readme-ov-file#hackatime-implementation" });
 }
 
 function formatTime(totalSeconds) {
