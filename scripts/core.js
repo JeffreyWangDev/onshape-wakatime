@@ -47,7 +47,7 @@ class WakaCore {
             plugin: getUserAgent(),
             project: this.getProjectName() ?? "<<LAST_PROJECT>>",
             time: this.getCurrentTime(),
-            type: url,
+            type: "domain",
         };
     }
 
