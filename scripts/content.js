@@ -270,16 +270,16 @@ function check_for_hackatime() {
     try {
         const url = new URL(window.location.href);
         if (url.hostname === "hackatime.hackclub.com") {
-        if (window.location.href.includes("/my/settings?wakatime_autoset=0")) {
-            auto_set_api_key();
-            return;
-        }
-            errors = chrome.storage.local.get().then((items) => {
-            api_key = items.apiKey;
-            if (!api_key || api_key.length == 0 || items.msg.includes("API key invalid")) {
-                popup_auto_set_api_key();
+            if (window.location.href.includes("/my/settings?wakatime_autoset=0")) {
+                auto_set_api_key();
+                return;
             }
-        });
+            errors = chrome.storage.local.get().then((items) => {
+                api_key = items.apiKey;
+                if (!api_key || api_key.length == 0 || items.msg.includes("API key invalid")) {
+                    popup_auto_set_api_key();
+                }
+            });
         }
     } catch (e) {
         // Invalid URL, do nothing
