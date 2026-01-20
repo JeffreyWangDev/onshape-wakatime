@@ -161,32 +161,32 @@ function auto_set_api_key() {
             popup_error("Auto-set works only on hackatime.hackclub.com pages.");
             return;
         }
+        if (url.pathname === "/my/settings" && url.searchParams.get("wakatime_autoset") === "0") {
+            try {
+                const text = document.body ? document.body.innerText || "" : "";
+                const match = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
+                if (match && match[0]) {
+                    const key = match[0];
+                    chrome.storage.local.set({ apiKey: key, api_url: "https://hackatime.hackclub.com/api/hackatime/v1" }).then(() => {
+                        popup_error("API key set automatically from this page.", false);
+                        const url = new URL(window.location.href);
+                        url.searchParams.delete("wakatime_autoset");
+                        window.history.pushState({}, '', url);
+                    });
+                } else {
+                    popup_error("Could not find an API key on this page.");
+                }
+            } catch (e) {
+                popup_error("Failed to auto-set API key: " + (e && e.message ? e.message : "unknown error"));
+
+            }
+            return;
+        }
+        window.location.href = "https://hackatime.hackclub.com/my/settings?wakatime_autoset=0";
     } catch (e) {
         popup_error("Auto-set works only on hackatime.hackclub.com pages.");
         return;
     }
-    if (window.location.href.includes("/my/settings?wakatime_autoset=0")) {
-        try {
-            const text = document.body ? document.body.innerText || "" : "";
-            const match = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
-            if (match && match[0]) {
-                const key = match[0];
-                chrome.storage.local.set({ apiKey: key, api_url: "https://hackatime.hackclub.com/api/hackatime/v1" }).then(() => {
-                    popup_error("API key set automatically from this page.", false);
-                    const url = new URL(window.location.href);
-                    url.searchParams.delete("wakatime_autoset");
-                    window.history.pushState({}, '', url);
-                });
-            } else {
-                popup_error("Could not find an API key on this page.");
-            }
-        } catch (e) {
-            popup_error("Failed to auto-set API key: " + (e && e.message ? e.message : "unknown error"));
-
-        }
-        return;
-    }
-    window.location.href = "https://hackatime.hackclub.com/my/settings?wakatime_autoset=0";
 }
 
 
@@ -270,7 +270,7 @@ function check_for_hackatime() {
     try {
         const url = new URL(window.location.href);
         if (url.hostname === "hackatime.hackclub.com") {
-            if (window.location.href.includes("/my/settings?wakatime_autoset=0")) {
+            if (url.pathname === "/my/settings" && url.searchParams.get("wakatime_autoset") === "0") {
                 auto_set_api_key();
                 return;
             }
