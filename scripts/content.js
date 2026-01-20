@@ -105,8 +105,13 @@ function check_if_installed_correctly() {
 }
 
 function waitForCanvas() {
-    if (!window.location.href.includes("cad.onshape.com")) {
-        return
+    try {
+        const url = new URL(window.location.href);
+        if (url.hostname !== "cad.onshape.com") {
+            return;
+        }
+    } catch (e) {
+        return;
     }
     if (document.getElementById("canvas")) {
 
@@ -123,9 +128,13 @@ function waitForCanvas() {
 }
 const core = new WakaCore();
 function handleClick() {
-    
-    if (!window.location.href.includes("cad.onshape.com")) {
-        return
+    try {
+        const url = new URL(window.location.href);
+        if (url.hostname !== "cad.onshape.com") {
+            return;
+        }
+    } catch (e) {
+        return;
     }
     let url = window.location.href;
     let heatbeat = core.buildHeartbeat(url);
@@ -146,7 +155,13 @@ function handleClick() {
 }
 
 function auto_set_api_key() {
-    if (!window.location.href.includes("hackatime.hackclub.com")) {
+    try {
+        const url = new URL(window.location.href);
+        if (url.hostname !== "hackatime.hackclub.com") {
+            popup_error("Auto-set works only on hackatime.hackclub.com pages.");
+            return;
+        }
+    } catch (e) {
         popup_error("Auto-set works only on hackatime.hackclub.com pages.");
         return;
     }
@@ -252,17 +267,22 @@ function popup_auto_set_api_key() {
 }
 
 function check_for_hackatime() {
-    if (window.location.href.includes("hackatime.hackclub.com")) {
+    try {
+        const url = new URL(window.location.href);
+        if (url.hostname === "hackatime.hackclub.com") {
         if (window.location.href.includes("/my/settings?wakatime_autoset=0")) {
             auto_set_api_key();
             return;
         }
-        errors = chrome.storage.local.get().then((items) => {
-        api_key = items.apiKey;
-        if (!api_key || api_key.length == 0 || items.msg.includes("API key invalid")) {
-            popup_auto_set_api_key();
+            errors = chrome.storage.local.get().then((items) => {
+            api_key = items.apiKey;
+            if (!api_key || api_key.length == 0 || items.msg.includes("API key invalid")) {
+                popup_auto_set_api_key();
+            }
+        });
         }
-    });
+    } catch (e) {
+        // Invalid URL, do nothing
     }
 }
 check_for_hackatime()

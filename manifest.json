@@ -45,7 +45,8 @@
                 "scripts/core.js"
             ],
             "matches": [
-                "<all_urls>"
+                "https://cad.onshape.com/*",
+                "https://hackatime.hackclub.com/*"
             ]
         }
     ]
