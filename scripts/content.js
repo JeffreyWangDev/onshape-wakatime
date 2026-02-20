@@ -161,7 +161,7 @@ function auto_set_api_key() {
             popup_error("Auto-set works only on hackatime.hackclub.com pages.");
             return;
         }
-        if (url.pathname === "/my/settings" && url.searchParams.get("wakatime_autoset") === "0") {
+        if (url.pathname.startsWith("/my/settings") && url.searchParams.get("wakatime_autoset") === "0") {
             try {
                 const text = document.body ? document.body.innerText || "" : "";
                 const match = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
@@ -182,7 +182,7 @@ function auto_set_api_key() {
             }
             return;
         }
-        window.location.href = "https://hackatime.hackclub.com/my/settings?wakatime_autoset=0";
+        window.location.href = "https://jeffreyw.org/url/hacktime-api-settings";
     } catch (e) {
         popup_error("Auto-set works only on hackatime.hackclub.com pages.");
         return;
@@ -270,7 +270,7 @@ function check_for_hackatime() {
     try {
         const url = new URL(window.location.href);
         if (url.hostname === "hackatime.hackclub.com") {
-            if (url.pathname === "/my/settings" && url.searchParams.get("wakatime_autoset") === "0") {
+            if (url.pathname.startsWith("/my/settings") && url.searchParams.get("wakatime_autoset") === "0") {
                 auto_set_api_key();
                 return;
             }
