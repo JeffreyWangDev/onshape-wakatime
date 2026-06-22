@@ -56,40 +56,45 @@ function sendHeartbeat() {
           return;
         }
 
+        const BATCH_SIZE = 100;
+        const batches = [];
+        for (let i = 0; i < heartbeats.length; i += BATCH_SIZE) {
+          batches.push(heartbeats.slice(i, i + BATCH_SIZE));
+        }
 
-        fetch(api_url + "/users/current/heartbeats.bulk", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-              Authorization: api_url.includes("hackatime") ? `Bearer ${apiKey}` : `Basic ${apiKey}`,
-          },
-          body: JSON.stringify(heartbeats),
-        })
-          .then((response) => {
-            if (response.ok) {
-              chrome.storage.local.set({ heartbeats: [] });
-              chrome.storage.local.set({ msg: "Heartbeats sent successfully at " + new Date().toLocaleTimeString() });
-              resolve();
-            } else if (response.status == 401) {
-              chrome.storage.local.set({ msg: "Error: API key invalid" });
-              reject(new Error("API key invalid"));
-            } else if (response.status == 403) {
-              chrome.storage.local.set({ msg: "Error: API key invalid" });
-              reject(new Error("API key invalid"));
-            }
-            else {
-              chrome.storage.local.set({ msg: "Error: Something went wrong! " + response.status.toString() });
-              reject(new Error("API error"));
-            }
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: api_url.includes("hackatime") ? `Bearer ${apiKey}` : `Basic ${apiKey}`,
+        };
+
+        Promise.all(
+          batches.map((batch) =>
+            fetch(api_url + "/users/current/heartbeats.bulk", {
+              method: "POST",
+              headers,
+              body: JSON.stringify(batch),
+            }).then((response) => {
+              if (response.ok) return;
+              if (response.status === 401 || response.status === 403) {
+                throw new Error("API key invalid");
+              }
+              throw new Error("API error: " + response.status);
+            })
+          )
+        )
+          .then(() => {
+            chrome.storage.local.set({ heartbeats: [] });
+            chrome.storage.local.set({ msg: `Heartbeats sent successfully at ${new Date().toLocaleTimeString()} (${batches.length} batch${batches.length > 1 ? "es" : ""})` });
+            resolve();
           })
           .catch((error) => {
+            chrome.storage.local.set({ msg: "Error: " + error.message });
             reject(error);
           });
       }).catch((error) => {
         reject(error);
       });
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
       reject(e);
     }
