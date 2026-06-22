@@ -1,4 +1,4 @@
-let VERSION = "2.1.0";
+let VERSION = "2.1.2";
 function getUserAgent() {
     const ua = navigator.userAgent;
     const browserMatch = ua.match(/(Chrome|Firefox|Safari|Edge)\/[\d.]+/);
